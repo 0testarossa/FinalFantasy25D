@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,11 +24,15 @@ public class BattleGui : MonoBehaviour
     private TextMeshProUGUI target2ButtonText;
     private TextMeshProUGUI target3ButtonText;
     private TextMeshProUGUI target4ButtonText;
-    private int state; //0 -> mainMenu, 1 -> attacks 2-> targets attack 3-> targets special 4-> locked
+    private int state; //0 -> mainMenu, 1 -> attacks 2-> targets auto attack 3-> targets magic attack 4-> targets special 5> lock
     public string[] targets;
+    private string activatedSpell;
+    private string actualTarget;
     
     void Start()
     {
+        activatedSpell = "";
+        actualTarget = "";
         state = 0;
         attackButton = GameObject.Find("Canvas/AttackButton").GetComponent<Button>();
         specialButton = GameObject.Find("Canvas/SpecialButton").GetComponent<Button>();
@@ -81,10 +86,10 @@ public class BattleGui : MonoBehaviour
             {
                 getMainBattleChoices();
 
-            } else if(state == 2)
+            } else if(state == 2 || state == 3)
             {
                 getAttackChoices();
-            } else if(state == 3)
+            } else if(state == 4)
             {
                 getMainBattleChoices();
             }
@@ -109,42 +114,46 @@ public class BattleGui : MonoBehaviour
         state = 1;
     }
 
-    public void getTargetMenu()
+    public void getTargetMenu(bool wasClickedAutoAttacked = true) //default auto attack state
     {
         clearAllButtons();
         if (targets.Length == 1)
         {
             changeTarget1Button(true);
+            target1Button.Select();
         } else if(targets.Length == 2)
         {
             changeTarget1Button(true);
             changeTarget2Button(true);
+            target1Button.Select();
         } else if(targets.Length == 3)
         {
             changeTarget1Button(true);
             changeTarget2Button(true);
             changeTarget3Button(true);
-            changeTarget4Button(true);
+            target1Button.Select();
         } else if(targets.Length == 4)
         {
             changeTarget1Button(true);
             changeTarget2Button(true);
             changeTarget3Button(true);
             changeTarget4Button(true);
+            target1Button.Select();
         }
         if(state == 0)
         {
-            state = 3;
+            state = 4;
         } else if(state == 1)
         {
-            state = 2;
+            if(wasClickedAutoAttacked)
+            {
+                state = 2;
+            }
+            else
+            {
+                state = 3;
+            }
         }
-    }
-
-    public void specialChoices()
-    {
-        getTargetMenu();
-        state = 2;
     }
 
     public void onAttackButtonClick()
@@ -154,36 +163,51 @@ public class BattleGui : MonoBehaviour
     public void onSpecialButtonClick()
     {
         getTargetMenu();
+        activatedSpell = "special";
     }
 
     public void onAutoAttackButtonClick()
     {
         getTargetMenu();
+        activatedSpell = "autoAttack";
     }
 
     public void onMagicAttackButtonClick()
     {
-        getTargetMenu();
+        getTargetMenu(false);
+        activatedSpell = "magicAttack";
     }
 
     public void onTarget1ButtonClick()
     {
-
+        GameObject.Find("Canvas/energyComponent/energyBarBackground/lackEnergyBar").GetComponent<EnergyBar>().useSpell();
+        actualTarget = targets[0];
+        state = 5;
+        clearAllButtons();
     }
 
     public void onTarget2ButtonClick()
     {
-
+        GameObject.Find("Canvas/energyComponent/energyBarBackground/lackEnergyBar").GetComponent<EnergyBar>().useSpell();
+        actualTarget = targets[1];
+        state = 5;
+        clearAllButtons();
     }
 
     public void onTarget3ButtonClick()
     {
-
+        GameObject.Find("Canvas/energyComponent/energyBarBackground/lackEnergyBar").GetComponent<EnergyBar>().useSpell();
+        actualTarget = targets[2];
+        state = 5;
+        clearAllButtons();
     }
 
     public void onTarget4ButtonClick()
     {
-
+        GameObject.Find("Canvas/energyComponent/energyBarBackground/lackEnergyBar").GetComponent<EnergyBar>().useSpell();
+        actualTarget = targets[3];
+        state = 5;
+        clearAllButtons();
     }
 
     public void changeAttackButton(bool enable)
