@@ -4,6 +4,7 @@ using System.Linq;
 using System.Resources;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Battle;
 
@@ -592,13 +593,13 @@ public class BattleGui : MonoBehaviour
     {
         targets = targets.Where(val => val != target).ToArray();
         alliesTargets = alliesTargets.Where(val => !target.Contains(val)).ToArray();
-        if(targets.Length == 0)
+        if(targets.Length == 0) //win
         {
-            //przejdz do kolejnej sceny
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-        else if(alliesTargets.Length == 0)
+        else if(alliesTargets.Length == 0) //lose
         {
-            //przejdz do kolejnej sceny
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
