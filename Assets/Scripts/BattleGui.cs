@@ -527,7 +527,7 @@ public class BattleGui : MonoBehaviour
             characterIndex = getCharacterIndex();
             character.name = GetPlayerName.actualPlayer + activatedSpell;
             character.fromPositionX = GameObject.Find(actualTarget).transform.position.x;
-            character.fromPositionY = GameObject.Find(actualTarget).transform.position.y + 8.2f;
+            character.fromPositionY = GameObject.Find(actualTarget).transform.position.y + 12.2f;
             character.toPositionX = GameObject.Find(actualTarget).transform.position.x;
             character.toPositionY = GameObject.Find(actualTarget).transform.position.y;
             GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
@@ -540,50 +540,50 @@ public class BattleGui : MonoBehaviour
         if (spell.Contains("autoAttack"))
         {
             SpriteRenderer spellObject = GameObject.Find(target + "/hpBar").GetComponent<SpriteRenderer>();
-            if(spellObject.transform.localScale.x <= 0.2f)
+            if(spellObject.transform.localScale.x <= 0.05f)
             {
                 spellObject.transform.localScale = new Vector2(0f, spellObject.transform.localScale.y);
                 targetDie(target);
             } else
             {
-                spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x - 0.2f, spellObject.transform.localScale.y);
+                spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x - 0.05f, spellObject.transform.localScale.y);
             }
         } else if(spell.Contains("magicAttack"))
         {
             SpriteRenderer spellObject = GameObject.Find(target + "/hpBar").GetComponent<SpriteRenderer>();
-            if (spellObject.transform.localScale.x <= 0.2f)
+            if (spellObject.transform.localScale.x <= 0.05f)
             {
                 spellObject.transform.localScale = new Vector2(0f, spellObject.transform.localScale.y);
                 targetDie(target);
             }
             else
             {
-                spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x - 0.2f, spellObject.transform.localScale.y);
+                spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x - 0.05f, spellObject.transform.localScale.y);
             }
         } else if(spell.Contains("special"))
         {
             if(target == "healer" || target == "scythe" || target == "tank" || target == "mage")
             {
                 SpriteRenderer spellObject = GameObject.Find(target + "RightStatic/hpBar").GetComponent<SpriteRenderer>();
-                if (spellObject.transform.localScale.x >= 0.65f)
+                if (spellObject.transform.localScale.x >= 0.75f)
                 {
                     spellObject.transform.localScale = new Vector2(0.85f, spellObject.transform.localScale.y);
                 }
                 else
                 {
-                    spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x + 0.2f, spellObject.transform.localScale.y);
+                    spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x + 0.1f, spellObject.transform.localScale.y);
                 }
             } else
             {
                 SpriteRenderer spellObject = GameObject.Find(target + "/hpBar").GetComponent<SpriteRenderer>();
-                if (spellObject.transform.localScale.x <= 0.2f)
+                if (spellObject.transform.localScale.x <= 0.05f)
                 {
                     spellObject.transform.localScale = new Vector2(0f, spellObject.transform.localScale.y);
                     targetDie(target);
                 }
                 else
                 {
-                    spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x - 0.2f, spellObject.transform.localScale.y);
+                    spellObject.transform.localScale = new Vector2(spellObject.transform.localScale.x - 0.05f, spellObject.transform.localScale.y);
                 }
             }
         }

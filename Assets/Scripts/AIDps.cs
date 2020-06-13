@@ -71,7 +71,7 @@ public class AIDps : MonoBehaviour
                 characterIndex = getCharacterIndex(activatedSpell);
                 character.name = getCharacterClassName(this.name) + activatedSpell;
                 character.fromPositionX = GameObject.Find(actualTarget).transform.position.x;
-                character.fromPositionY = GameObject.Find(actualTarget).transform.position.y + 8.2f;
+                character.fromPositionY = GameObject.Find(actualTarget).transform.position.y + 12.2f;
                 character.toPositionX = GameObject.Find(actualTarget).transform.position.x;
                 character.toPositionY = GameObject.Find(actualTarget).transform.position.y;
                 GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
