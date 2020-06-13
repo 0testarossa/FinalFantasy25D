@@ -23,7 +23,8 @@ public class AIEnemy : MonoBehaviour
         else
         {
             int characterIndex = getCharacterIndex();
-            string actualTarget = GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().alliesTargets[0] + "RightStatic";
+            string[] alliesTargets = GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().alliesTargets;
+            string actualTarget = alliesTargets[Random.Range(0, alliesTargets.Length)] + "RightStatic";
             CharacterAnimationSettings character = new CharacterAnimationSettings();
             character.name = this.name + "autoAttack";
             character.fromPositionX = this.transform.position.x;

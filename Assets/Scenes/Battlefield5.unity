@@ -1360,6 +1360,7 @@ GameObject:
   - component: {fileID: 578898970}
   - component: {fileID: 578898969}
   - component: {fileID: 578898968}
+  - component: {fileID: 578898971}
   m_Layer: 0
   m_Name: infridLeftInStatic
   m_TagString: Untagged
@@ -1451,6 +1452,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &578898971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578898967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e348c3ce39d2624d85de54f8e18c456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenAttacks: 8
 --- !u!1 &587816414
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,6 +3051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 856350517}
   - component: {fileID: 856350516}
+  - component: {fileID: 856350518}
   m_Layer: 0
   m_Name: tankRightStatic
   m_TagString: Untagged
@@ -3109,6 +3124,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &856350518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856350515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf1e7959597e5b48b2a361d1f3e5fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenAttacks: 6
 --- !u!1 &961906963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3984,6 +4012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184539654}
   - component: {fileID: 1184539653}
+  - component: {fileID: 1184539655}
   m_Layer: 0
   m_Name: scytheRightStatic
   m_TagString: Untagged
@@ -4056,6 +4085,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1184539655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184539652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf1e7959597e5b48b2a361d1f3e5fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenAttacks: 6
 --- !u!1 &1228284952
 GameObject:
   m_ObjectHideFlags: 0
@@ -5880,6 +5922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2055645380}
   - component: {fileID: 2055645379}
+  - component: {fileID: 2055645381}
   m_Layer: 0
   m_Name: mageRightStatic
   m_TagString: Untagged
@@ -5952,6 +5995,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2055645381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055645378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf1e7959597e5b48b2a361d1f3e5fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenAttacks: 8
 --- !u!1 &2100599928
 GameObject:
   m_ObjectHideFlags: 0
