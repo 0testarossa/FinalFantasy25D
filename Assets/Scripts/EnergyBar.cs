@@ -37,7 +37,7 @@ public class EnergyBar : MonoBehaviour
         if(playerAcceptedSpell && canUseSpell)
         {
             usedSpell();
-            GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().getMainBattleChoices();
+            GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().selectAnimtion();
             playerAcceptedSpell = false;
             //can animate from battle gui    tzn. energybar -> battlegui -> animacja(character)??
 

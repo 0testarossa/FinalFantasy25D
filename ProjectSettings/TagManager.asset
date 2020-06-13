@@ -62,3 +62,6 @@ TagManager:
   - name: FirstPlayer
     uniqueID: 1771985043
     locked: 0
+  - name: Effects
+    uniqueID: 1193584411
+    locked: 0
