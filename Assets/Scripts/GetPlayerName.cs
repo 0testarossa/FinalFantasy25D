@@ -566,7 +566,7 @@ public class GetPlayerName : MonoBehaviour
 "P4: I wouldn't want to disturb you, but it's probably not the time for such talks.",
 "Dark P2: It's okay. I surrender, P4.",
 "P4: Surrender?",
-"P4: You must joking. You wanted to kill us.", //550
+"P4: You must be joking. You wanted to kill us.", //550
 "P4: I won't let you go, witch!",
 "P1: Calm down P4.",
 "P1: She said that...",
