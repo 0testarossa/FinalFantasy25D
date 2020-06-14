@@ -30,7 +30,7 @@ public class ShwPlotTextAdvanced : MonoBehaviour
     private bool showNextText;
     public int fromDialogPage;
     public int toDialogPage;
-    private int currentDialogPage;
+    public int currentDialogPage;
     private bool canSkipText;
     private IEnumerator coroutine;
     public string scriptToChangeScene;

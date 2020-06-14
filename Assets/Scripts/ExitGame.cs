@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class ChangeSceneWithoutFade : MonoBehaviour
+public class ExitGame : MonoBehaviour
 {
     // Start is called before the first frame update
-    private int SceneNumber;
     void Start()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Application.Quit();
     }
 
     // Update is called once per frame
