@@ -626,6 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fromDialogPage: 10
   toDialogPage: 46
+  currentDialogPage: 0
   scriptToChangeScene: ChangeSceneWithoutFade
   imortantSteps:
   - characters:
@@ -707,7 +708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9081e53f234a39f4baa888d6e95818c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneNumber: 4
 --- !u!114 &458142625
 MonoBehaviour:
   m_ObjectHideFlags: 0

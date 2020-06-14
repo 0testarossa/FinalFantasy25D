@@ -27,13 +27,13 @@ public class FadeIn : MonoBehaviour
             }
         }
         time -= Time.deltaTime;
-        if (time <= 0)
+        /*if (time <= 0)
         {
             if (alpha < 255f)
             {
                 alpha += Time.deltaTime * 0.4f;
                 GameObject.Find("Canvas/Image").GetComponent<Image>().color = new Color(0, 0, 0, alpha);
             }
-        }
+        }*/
     }
 }
