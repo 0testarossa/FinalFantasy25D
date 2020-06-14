@@ -11,6 +11,7 @@ using static Battle;
 public class BattleGui : MonoBehaviour
 {
     // Start is called before the first frame update
+    private SpriteRenderer boss;
     private Button attackButton;
     private Button specialButton;
     private Button autoAttackButton;
@@ -57,7 +58,14 @@ public class BattleGui : MonoBehaviour
 
     void Start()
     {
-        //targets = new string[] { "first target", "secondTarget" };
+        if (SceneManager.GetActiveScene().buildIndex == 26)
+        {
+            if (GetPlayerName.choice1 != 0 || GetPlayerName.choice2 != 0 || GetPlayerName.choice3 != 0)
+            {
+                SpriteRenderer bossHp = GameObject.Find("infridRightInStatic/hpBar").GetComponent<SpriteRenderer>();
+                bossHp.transform.localScale = new Vector2(2000f, bossHp.transform.localScale.y);
+            }
+        }
         activatedSpell = "";
         actualTarget = "";
         state = 0;
@@ -595,11 +603,53 @@ public class BattleGui : MonoBehaviour
         alliesTargets = alliesTargets.Where(val => !target.Contains(val)).ToArray();
         if(targets.Length == 0) //win
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if(SceneManager.GetActiveScene().buildIndex == 26)
+            {
+                if(GetPlayerName.choice1 == 0 && GetPlayerName.choice2 == 0 && GetPlayerName.choice3 == 0)
+                {
+                    SceneManager.LoadScene(27);
+                } else if(GetPlayerName.choice1 != 0)
+                {
+                    SceneManager.LoadScene(29);
+                }
+                else if (GetPlayerName.choice2 != 0)
+                {
+                    SceneManager.LoadScene(33);
+                }
+                else if (GetPlayerName.choice3 != 0)
+                {
+                    SceneManager.LoadScene(31);
+                }
+            } else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
         else if(alliesTargets.Length == 0) //lose
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (SceneManager.GetActiveScene().buildIndex == 26)
+            {
+                if (GetPlayerName.choice1 == 0 && GetPlayerName.choice2 == 0 && GetPlayerName.choice3 == 0)
+                {
+                    SceneManager.LoadScene(27);
+                }
+                else if (GetPlayerName.choice1 != 0)
+                {
+                    SceneManager.LoadScene(29);
+                }
+                else if (GetPlayerName.choice2 != 0)
+                {
+                    SceneManager.LoadScene(33);
+                }
+                else if (GetPlayerName.choice3 != 0)
+                {
+                    SceneManager.LoadScene(31);
+                }
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 
