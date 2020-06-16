@@ -8,9 +8,13 @@ public class AIDps : MonoBehaviour
     private float timeToNextAttack;
     public float timeBetweenAttacks = 6f;
     private string[] allSpells;
+    private bool notDead;
+    private SpriteRenderer hpBar;
     // Start is called before the first frame update
     void Start()
     {
+        hpBar = GameObject.Find(this.name + "/hpBar").GetComponent<SpriteRenderer>();
+        notDead = true;
         allSpells = new string[3] { "autoAttack", "magicAttack", "special" };
         timeToNextAttack = timeBetweenAttacks;
     }
@@ -18,21 +22,35 @@ public class AIDps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (notDead)
+        {
+            prepareForAttack();
+            if (hpBar.transform.localScale.x == 0f)
+            {
+                notDead = false;
+            }
+        }
+    }
+
+    private void prepareForAttack()
+    {
         if (timeToNextAttack > 0)
         {
             timeToNextAttack -= Time.deltaTime;
         }
-        else
+        else if (GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().targets.Length > 0)
         {
             string activatedSpell = allSpells[Random.Range(0, 3)];
             int characterIndex = getCharacterIndex(activatedSpell);
             string[] alliesTargets = GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().alliesTargets;
             string[] targets = GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().targets;
             string actualTarget = "";
+
             if (this.name.Contains("healer") && activatedSpell == "special")
             {
                 actualTarget = alliesTargets[Random.Range(0, alliesTargets.Length)] + "RightStatic";
-            } else
+            }
+            else
             {
                 actualTarget = targets[Random.Range(0, targets.Length)];
             }
@@ -56,12 +74,12 @@ public class AIDps : MonoBehaviour
                 character.toPositionY = GameObject.Find(actualTarget).transform.position.y;
             }
 
-            if(activatedSpell == "special" || activatedSpell == "autoAttack")
+            if (activatedSpell == "special" || activatedSpell == "autoAttack")
             {
                 GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
               character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
             }
-            else if(activatedSpell == "magicAttack")
+            else if (activatedSpell == "magicAttack")
             {
                 characterIndex = getCharacterAnimationIndex();
                 character.name = this.name;
@@ -81,8 +99,8 @@ public class AIDps : MonoBehaviour
 
 
 
-            
-           
+
+
             timeToNextAttack = timeBetweenAttacks;
         }
     }

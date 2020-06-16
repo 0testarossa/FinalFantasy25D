@@ -7,20 +7,36 @@ public class AIEnemy : MonoBehaviour
 {
     private float timeToNextAttack;
     public float timeBetweenAttacks = 8f;
+    private bool notDead;
+    private SpriteRenderer hpBar;
     // Start is called before the first frame update
     void Start()
     {
+        hpBar = GameObject.Find(this.name + "/hpBar").GetComponent<SpriteRenderer>();
+        notDead = true;
         timeToNextAttack = timeBetweenAttacks;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(timeToNextAttack > 0)
+        if(notDead)
+        {
+            prepareForAttack();
+            if(hpBar.transform.localScale.x == 0f)
+            {
+                notDead = false;
+            }
+        }
+    }
+
+    private void prepareForAttack()
+    {
+        if (timeToNextAttack > 0)
         {
             timeToNextAttack -= Time.deltaTime;
         }
-        else
+        else if (GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().alliesTargets.Length > 0)
         {
             int characterIndex = getCharacterIndex();
             string[] alliesTargets = GameObject.Find("Canvas/guiScripts").GetComponent<BattleGui>().alliesTargets;
