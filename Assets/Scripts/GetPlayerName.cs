@@ -827,8 +827,8 @@ public class GetPlayerName : MonoBehaviour
     };
 
     public static ArrayList allItemsInGame = new ArrayList { "crown", "crystal staff", "shield", "sweets", "cake", "flower", "pumkin", "hat", "mirror" };
-    public static ArrayList allItemsGathered = new ArrayList { "shield"};
-    public static ArrayList allItemsNotGathered = new ArrayList { "crown", "crystal staff", "sweets", "cake", "flower", "pumkin", "hat", "mirror" };
+    public static ArrayList allItemsGathered = new ArrayList { };
+    public static ArrayList allItemsNotGathered = new ArrayList { "shield", "crown", "crystal staff", "sweets", "cake", "flower", "pumkin", "hat", "mirror" };
 
     public static Dictionary<string, string> achievementItems = new Dictionary<string, string>()
     {
@@ -843,7 +843,7 @@ public class GetPlayerName : MonoBehaviour
         { "mirror", "you would rather not look at it" }
     };
 
-    public static int sceneIndexToRun = 1;
+    public static int sceneIndexToRun;
 
 
     private InputField txt_Input;
@@ -862,6 +862,7 @@ public class GetPlayerName : MonoBehaviour
         button.onClick.AddListener(delegate { onButtonClick(); });
         txt_Input.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         timeToChangeScene = 5.5f;
+        sceneIndexToRun = 1;
     }
 
     public void ValueChangeCheck()
@@ -891,28 +892,26 @@ public class GetPlayerName : MonoBehaviour
     {
         GameObject.Find("LoadButton").GetComponent<Button>().interactable = false;
         GameObject.Find("LoadButton/Text").GetComponent<Text>().text = "Loaded";
+        allItemsGathered = new ArrayList { };
+        allItemsNotGathered = new ArrayList { };
         SaveLoadManager.loadGame();
-
+        /*print("List: " + allItemsGathered.Count);
         print("Scene: " + sceneIndexToRun);
+        
+        foreach (string item in allItemsGathered){ print("Item2: " + item); }
 
-        foreach (string item in allItemsGathered)
-        {
-            print("Item: " + item);
-
-        }
+        foreach (string item in allItemsNotGathered){ print("NOT: " + item); }*/
     }
 
-    public void onResetClick()
+    /*public void onresetclick()
     {
         //zapis sceny 
-        PlayerPrefs.SetInt("Scene", 1);
-        print("PPP: " + allItemsGathered.ToString());
+        playerprefs.setint("scene", 1);
         //zapis zebranych itemów
-        foreach (string item in allItemsGathered)
+        foreach (string item in allitemsingame)
         {
-            print("PPP: " + item);
-            PlayerPrefs.SetInt(item, 0);
-            PlayerPrefs.SetInt(item+"N", 0);
+            playerprefs.setint(item, 0);
+            playerprefs.setint(item + "n", 1);
         }
     }
 
@@ -928,7 +927,7 @@ public class GetPlayerName : MonoBehaviour
         PlayerPrefs.SetInt("cakeN", 1);
 
 
-    }
+    }*/
 
 
     void Update()

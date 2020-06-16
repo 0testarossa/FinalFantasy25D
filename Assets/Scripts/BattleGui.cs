@@ -154,8 +154,8 @@ public class BattleGui : MonoBehaviour
                 fillStarsWithColor();
             } else
             {
-                SaveLoadManager.saveGame();
                 SceneManager.LoadScene(nextSceneBuildIndex);
+                SaveLoadManager.saveGame();
             }
         }
         if(GameObject.Find(GetPlayerName.actualPlayer + "RightStatic/hpBar").GetComponent<SpriteRenderer>().transform.localScale.x == 0f) //hide gui when died

@@ -38,6 +38,7 @@ public class ChangeSceneWithFading : MonoBehaviour
             }
             else
             {
+                SaveLoadManager.saveGame();
                 SceneManager.LoadScene(SceneNumber);
             }
         }

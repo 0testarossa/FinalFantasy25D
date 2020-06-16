@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ public static class SaveLoadManager
         foreach (string item in GetPlayerName.allItemsGathered)
         {
             PlayerPrefs.SetInt(item, 1);
+            PlayerPrefs.SetInt(item + "N", 0);
         }
 
         //zapis zebranych itemów
@@ -30,6 +32,7 @@ public static class SaveLoadManager
 
         foreach (string item in GetPlayerName.allItemsInGame)
         {
+            
             if (PlayerPrefs.GetInt(item, 0) == 1)
             {
                 GetPlayerName.allItemsGathered.Add(item);
@@ -39,9 +42,9 @@ public static class SaveLoadManager
 
         foreach (string item in GetPlayerName.allItemsInGame)
         {
-            if (PlayerPrefs.GetInt(item+"N", 0) == 1)
+            if (PlayerPrefs.GetInt(item+"N", 1) == 1)
             {
-                GetPlayerName.allItemsGathered.Add(item);
+                GetPlayerName.allItemsNotGathered.Add(item);
             }
 
         }

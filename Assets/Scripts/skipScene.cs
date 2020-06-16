@@ -16,6 +16,7 @@ public class skipScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            SaveLoadManager.saveGame();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
