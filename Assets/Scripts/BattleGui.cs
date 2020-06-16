@@ -686,8 +686,8 @@ public class BattleGui : MonoBehaviour
 
     private void getDropFromMob()
     {
-        int chance = Random.Range(0, 25);
-        if(chance < 35)
+        int chance = Random.Range(0, 100);
+        if(chance < 38)
         {
             if (GetPlayerName.allItemsNotGathered.Count > 0)
             {
