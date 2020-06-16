@@ -687,7 +687,7 @@ public class BattleGui : MonoBehaviour
     private void getDropFromMob()
     {
         int chance = Random.Range(0, 25);
-        if(chance < 25)
+        if(chance < 35)
         {
             if (GetPlayerName.allItemsNotGathered.Count > 0)
             {
@@ -705,9 +705,13 @@ public class BattleGui : MonoBehaviour
 
     private void targetDie(string target)
     {
+        var tempTargetsLength = targets.Length;
         targets = targets.Where(val => val != target).ToArray();
+        if(tempTargetsLength > targets.Length)
+        {
+            getDropFromMob();
+        }
         alliesTargets = alliesTargets.Where(val => !target.Contains(val)).ToArray();
-        getDropFromMob();
         if(targets.Length == 0) //win
         {
             shouldChangeScene = true;
