@@ -843,6 +843,8 @@ public class GetPlayerName : MonoBehaviour
         { "mirror", "you would rather not look at it" }
     };
 
+    public static int sceneIndexToRun = 1;
+
 
     private InputField txt_Input;
     private Button button;
@@ -885,6 +887,50 @@ public class GetPlayerName : MonoBehaviour
         //timerPref = PlayerPrefs.GetInt("playerName");
     }
 
+    public void onLoadButtonClick()
+    {
+        GameObject.Find("LoadButton").GetComponent<Button>().interactable = false;
+        GameObject.Find("LoadButton/Text").GetComponent<Text>().text = "Loaded";
+        SaveLoadManager.loadGame();
+
+        print("Scene: " + sceneIndexToRun);
+
+        foreach (string item in allItemsGathered)
+        {
+            print("Item: " + item);
+
+        }
+    }
+
+    public void onResetClick()
+    {
+        //zapis sceny 
+        PlayerPrefs.SetInt("Scene", 1);
+        print("PPP: " + allItemsGathered.ToString());
+        //zapis zebranych itemów
+        foreach (string item in allItemsGathered)
+        {
+            print("PPP: " + item);
+            PlayerPrefs.SetInt(item, 0);
+            PlayerPrefs.SetInt(item+"N", 0);
+        }
+    }
+
+    public void save()
+    {
+        //zapis sceny 
+        PlayerPrefs.SetInt("Scene", 5);
+
+
+        PlayerPrefs.SetInt("sweets", 1);
+        PlayerPrefs.SetInt("cake", 1);
+        PlayerPrefs.SetInt("sweetsN", 1);
+        PlayerPrefs.SetInt("cakeN", 1);
+
+
+    }
+
+
     void Update()
     {
         if(shouldBegin)
@@ -892,7 +938,7 @@ public class GetPlayerName : MonoBehaviour
             timeToChangeScene -= Time.deltaTime;
             if (timeToChangeScene <= 0)
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(sceneIndexToRun);
             }
         }
     }

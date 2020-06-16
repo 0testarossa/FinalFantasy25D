@@ -154,6 +154,7 @@ public class BattleGui : MonoBehaviour
                 fillStarsWithColor();
             } else
             {
+                SaveLoadManager.saveGame();
                 SceneManager.LoadScene(nextSceneBuildIndex);
             }
         }
