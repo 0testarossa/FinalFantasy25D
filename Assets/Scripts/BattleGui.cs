@@ -69,7 +69,7 @@ public class BattleGui : MonoBehaviour
         showNewItemText = false;
         timeToChangeScene = 5f;
         shouldChangeScene = false;
-        if (SceneManager.GetActiveScene().buildIndex == 26)
+        if (SceneManager.GetActiveScene().name == "Battlefield26")
         {
             if (GetPlayerName.choice1 != 0 || GetPlayerName.choice2 != 0 || GetPlayerName.choice3 != 0)
             {
@@ -687,8 +687,8 @@ public class BattleGui : MonoBehaviour
 
     private void getDropFromMob()
     {
-        int chance = Random.Range(0, 25);
-        if(chance < 25)
+        int chance = Random.Range(0, 100);
+        if(chance < 38)
         {
             if (GetPlayerName.allItemsNotGathered.Count > 0)
             {
@@ -706,28 +706,32 @@ public class BattleGui : MonoBehaviour
 
     private void targetDie(string target)
     {
+        var tempTargetsLength = targets.Length;
         targets = targets.Where(val => val != target).ToArray();
+        if(tempTargetsLength > targets.Length)
+        {
+            getDropFromMob();
+        }
         alliesTargets = alliesTargets.Where(val => !target.Contains(val)).ToArray();
-        getDropFromMob();
         if(targets.Length == 0) //win
         {
             shouldChangeScene = true;
-            if (SceneManager.GetActiveScene().buildIndex == 26)
+            if (SceneManager.GetActiveScene().name == "Battlefield26")
             {
                 if(GetPlayerName.choice1 == 0 && GetPlayerName.choice2 == 0 && GetPlayerName.choice3 == 0)
                 {
-                    nextSceneBuildIndex = 27;
+                    nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 1; //27
                 } else if(GetPlayerName.choice1 != 0)
                 {
-                    nextSceneBuildIndex = 29;
+                    nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 3;//29
                 }
                 else if (GetPlayerName.choice2 != 0)
                 {
-                    nextSceneBuildIndex = 33;
+                    nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 7;//33
                 }
                 else if (GetPlayerName.choice3 != 0)
                 {
-                    nextSceneBuildIndex = 31;
+                    nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 5;//31
                 }
             } else
             {
@@ -736,23 +740,23 @@ public class BattleGui : MonoBehaviour
         }
         else if(alliesTargets.Length == 0) //lose
         {
-            if (SceneManager.GetActiveScene().buildIndex == 26)
+            if (SceneManager.GetActiveScene().name == "Battlefield26")
             {
                 if (GetPlayerName.choice1 == 0 && GetPlayerName.choice2 == 0 && GetPlayerName.choice3 == 0)
                 {
-                    SceneManager.LoadScene(27);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //27
                 }
                 else if (GetPlayerName.choice1 != 0)
                 {
-                    SceneManager.LoadScene(29);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3); //29
                 }
                 else if (GetPlayerName.choice2 != 0)
                 {
-                    SceneManager.LoadScene(33);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7); //33
                 }
                 else if (GetPlayerName.choice3 != 0)
                 {
-                    SceneManager.LoadScene(31);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5); //31
                 }
             }
             else
