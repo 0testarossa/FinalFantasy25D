@@ -59,10 +59,14 @@ public class BattleGui : MonoBehaviour
     private Image star1;
     private Image star2;
     private Image star3;
+    private bool showNewItemText;
+    private string newItemAcquired;
+    private TextMeshProUGUI newItemAcquiredText;
 
 
     void Start()
     {
+        showNewItemText = false;
         timeToChangeScene = 5f;
         shouldChangeScene = false;
         if (SceneManager.GetActiveScene().buildIndex == 26)
@@ -100,6 +104,10 @@ public class BattleGui : MonoBehaviour
         star3 = GameObject.Find("Canvas/star3").GetComponent<Image>();
 
         setAllStars(false);
+
+        newItemAcquiredText = GameObject.Find("Canvas/newItemText").GetComponent<TextMeshProUGUI>();
+        newItemAcquiredText.text = "";
+        newItemAcquiredText.gameObject.SetActive(false);
 
         attackButton.onClick.AddListener(delegate { onAttackButtonClick(); });
         specialButton.onClick.AddListener(delegate { onSpecialButtonClick(); });
@@ -149,9 +157,27 @@ public class BattleGui : MonoBehaviour
                 SceneManager.LoadScene(nextSceneBuildIndex);
             }
         }
-        if(GameObject.Find(GetPlayerName.actualPlayer + "RightStatic/hpBar").GetComponent<SpriteRenderer>().transform.localScale.x == 0f)
+        if(GameObject.Find(GetPlayerName.actualPlayer + "RightStatic/hpBar").GetComponent<SpriteRenderer>().transform.localScale.x == 0f) //hide gui when died
         {
             clearAllButtons();
+        }
+        if (showNewItemText)
+        {
+            if (newItemAcquiredText.color.a >2f)
+            {
+                var tempColor = newItemAcquiredText.color;
+                tempColor.a = 0f;
+                newItemAcquiredText.color = tempColor;
+                showNewItemText = false;
+            }
+            else
+            {
+                newItemAcquiredText.gameObject.SetActive(true);
+                newItemAcquiredText.text = "You have acquired new Item - " + newItemAcquired;
+                var tempColor = newItemAcquiredText.color;
+                tempColor.a += 0.35f * Time.deltaTime;
+                newItemAcquiredText.color = tempColor;
+            }
         }
         
     }
@@ -658,10 +684,30 @@ public class BattleGui : MonoBehaviour
         }
     }
 
+    private void getDropFromMob()
+    {
+        int chance = Random.Range(0, 25);
+        if(chance < 25)
+        {
+            if (GetPlayerName.allItemsNotGathered.Count > 0)
+            {
+                int randomIndex = Random.Range(0, GetPlayerName.allItemsNotGathered.Count);
+                newItemAcquired = (string)GetPlayerName.allItemsNotGathered[randomIndex];
+                GetPlayerName.allItemsNotGathered.Remove(newItemAcquired);
+                GetPlayerName.allItemsGathered.Add(newItemAcquired);
+                showNewItemText = true;
+                var tempColor = newItemAcquiredText.color;
+                tempColor.a = 0f;
+                newItemAcquiredText.color = tempColor;
+            }
+        }
+    }
+
     private void targetDie(string target)
     {
         targets = targets.Where(val => val != target).ToArray();
         alliesTargets = alliesTargets.Where(val => !target.Contains(val)).ToArray();
+        getDropFromMob();
         if(targets.Length == 0) //win
         {
             shouldChangeScene = true;
@@ -670,26 +716,21 @@ public class BattleGui : MonoBehaviour
                 if(GetPlayerName.choice1 == 0 && GetPlayerName.choice2 == 0 && GetPlayerName.choice3 == 0)
                 {
                     nextSceneBuildIndex = 27;
-                    //SceneManager.LoadScene(27);
                 } else if(GetPlayerName.choice1 != 0)
                 {
                     nextSceneBuildIndex = 29;
-                    //SceneManager.LoadScene(29);
                 }
                 else if (GetPlayerName.choice2 != 0)
                 {
                     nextSceneBuildIndex = 33;
-                    //SceneManager.LoadScene(33);
                 }
                 else if (GetPlayerName.choice3 != 0)
                 {
                     nextSceneBuildIndex = 31;
-                    //SceneManager.LoadScene(31);
                 }
             } else
             {
                 nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
         else if(alliesTargets.Length == 0) //lose

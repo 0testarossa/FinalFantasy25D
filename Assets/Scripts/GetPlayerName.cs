@@ -825,6 +825,25 @@ public class GetPlayerName : MonoBehaviour
 "The end",
 
     };
+
+    public static ArrayList allItemsInGame = new ArrayList { "crown", "crystal staff", "shield", "sweets", "cake", "flower", "pumkin", "hat", "mirror" };
+    public static ArrayList allItemsGathered = new ArrayList { "shield"};
+    public static ArrayList allItemsNotGathered = new ArrayList { "crown", "crystal staff", "sweets", "cake", "flower", "pumkin", "hat", "mirror" };
+
+    public static Dictionary<string, string> achievementItems = new Dictionary<string, string>()
+    {
+        { "crown", "only real princess is allowed to touch it"},
+        { "crystal staff", "who knows how to use it"},
+        { "shield", "I remember when strong worrior used it to gather some apples from tree" },
+        { "sweets", "only good games have some sweets" },
+        { "cake", "you tought about the chocolate one, didn't you?" },
+        { "flower", "just ordinary flower" },
+        { "pumkin", "part of the next boss if there will be any" },
+        { "hat", "only magicial knows how to do a trick with that" },
+        { "mirror", "you would rather not look at it" }
+    };
+
+
     private InputField txt_Input;
     private Button button;
     private string ObjectsText;
