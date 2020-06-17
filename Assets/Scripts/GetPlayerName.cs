@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GetPlayerName : MonoBehaviour
 {
-    public static string actualPlayer = "healer";
+    public static string actualPlayer = "scythe";
     public static int choice1 = 0;
     public static int choice2 = 0;
     public static int choice3 = 0;

@@ -10,6 +10,7 @@ public class AIDps : MonoBehaviour
     private string[] allSpells;
     private bool notDead;
     private SpriteRenderer hpBar;
+    private bool notBot;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +18,20 @@ public class AIDps : MonoBehaviour
         notDead = true;
         allSpells = new string[3] { "autoAttack", "magicAttack", "special" };
         timeToNextAttack = timeBetweenAttacks;
+        if (this.name.Contains(GetPlayerName.actualPlayer))
+        {
+            notBot = true;
+        }
+        else
+        {
+            notBot = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (notDead)
+        if (notBot && notDead)
         {
             prepareForAttack();
             if (hpBar.transform.localScale.x == 0f)
@@ -30,6 +39,7 @@ public class AIDps : MonoBehaviour
                 notDead = false;
             }
         }
+
     }
 
     private void prepareForAttack()
