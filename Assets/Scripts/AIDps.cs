@@ -31,7 +31,7 @@ public class AIDps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (notBot && notDead)
+        if (!notBot && notDead)
         {
             prepareForAttack();
             if (hpBar.transform.localScale.x == 0f)
