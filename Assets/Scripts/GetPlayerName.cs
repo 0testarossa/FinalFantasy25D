@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GetPlayerName : MonoBehaviour
+public class GetPlayerName : MonoBehaviourPunCallbacks
 {
     public static string actualPlayer = "scythe";
     public static int choice1 = 0;
@@ -884,6 +886,7 @@ public class GetPlayerName : MonoBehaviour
         shouldBegin = true;
         (this.GetComponent("FadeOut") as MonoBehaviour).enabled = true;
         BlackScreen.SetActive(true);
+        Connect();
 
         //timerPref = PlayerPrefs.GetInt("playerName");
     }
@@ -935,10 +938,61 @@ public class GetPlayerName : MonoBehaviour
         if(shouldBegin)
         {
             timeToChangeScene -= Time.deltaTime;
-            if (timeToChangeScene <= 0)
+            if (timeToChangeScene <= 0 && connectionFinished)
             {
-                SceneManager.LoadScene(sceneIndexToRun);
+                PhotonNetwork.LoadLevel(sceneIndexToRun);
+                connectionFinished = false;
             }
+        }
+    }
+    
+    private string gameVersion = "2";
+    private bool isConnecting = false;
+    private bool connectionFinished = false;
+
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+    
+    public void Connect()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+        else
+        {
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.GameVersion = gameVersion;
+        }
+    }
+    
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("OnConnectedToMaster() was called by PUN");
+
+        if (isConnecting)
+        {
+            PhotonNetwork.JoinRandomRoom();
+            isConnecting = false;
+        }
+    }
+    
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
+
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+    }
+    
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            connectionFinished = true;
         }
     }
 }

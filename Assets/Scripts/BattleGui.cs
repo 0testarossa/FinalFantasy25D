@@ -154,8 +154,11 @@ public class BattleGui : MonoBehaviour
                 fillStarsWithColor();
             } else
             {
-                SceneManager.LoadScene(nextSceneBuildIndex);
-                SaveLoadManager.saveGame();
+                if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene(nextSceneBuildIndex);
+                    SaveLoadManager.saveGame();
+                }
             }
         }
         if(GameObject.Find(GetPlayerName.actualPlayer + "RightStatic/hpBar").GetComponent<SpriteRenderer>().transform.localScale.x == 0f) //hide gui when died
@@ -744,24 +747,29 @@ public class BattleGui : MonoBehaviour
             {
                 if (GetPlayerName.choice1 == 0 && GetPlayerName.choice2 == 0 && GetPlayerName.choice3 == 0)
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //27
+                    if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //27
                 }
                 else if (GetPlayerName.choice1 != 0)
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3); //29
+                    if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3); //29
                 }
                 else if (GetPlayerName.choice2 != 0)
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7); //33
+                    if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 7); //33
                 }
                 else if (GetPlayerName.choice3 != 0)
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5); //31
+                    if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5); //31
                 }
             }
             else
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                if (Photon.Pun.PhotonNetwork.IsMasterClient)
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }

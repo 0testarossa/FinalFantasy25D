@@ -9,8 +9,11 @@ public class ChangeSceneWithoutFade : MonoBehaviour
     private int SceneNumber;
     void Start()
     {
-        SaveLoadManager.saveGame();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (Photon.Pun.PhotonNetwork.IsMasterClient)
+        {
+            SaveLoadManager.saveGame();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     // Update is called once per frame
