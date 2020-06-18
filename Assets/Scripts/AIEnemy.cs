@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using static Battle;
 
@@ -48,8 +51,14 @@ public class AIEnemy : MonoBehaviour
             character.toPositionX = GameObject.Find(actualTarget).transform.position.x;
             character.toPositionY = GameObject.Find(actualTarget).transform.position.y;
             timeToNextAttack = timeBetweenAttacks;
-            GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
-               character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
+            
+            object[] content = new object[] { character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget };
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+            SendOptions sendOptions = new SendOptions { Reliability = true };
+            PhotonNetwork.RaiseEvent(NetworkEventHandler.AnimateSpell, content, raiseEventOptions, sendOptions);
+            
+            //GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
+              // character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
         }
     }
 

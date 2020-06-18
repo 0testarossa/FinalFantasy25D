@@ -1000,7 +1000,32 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
         UpdatePlayersInRoomText();
+
+        var healerButton = GameObject.Find("Canvas/HealerButton").GetComponent<Button>();
+        var scytheButton = GameObject.Find("Canvas/ScytheButton").GetComponent<Button>();
+        var mageButton = GameObject.Find("Canvas/MageButton").GetComponent<Button>();
+        var tankButton = GameObject.Find("Canvas/TankButton").GetComponent<Button>();
         
+        switch (PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            case 1:
+                healerButton.onClick.Invoke();
+                break;
+            case 2:
+                scytheButton.onClick.Invoke();
+                break;
+            case 3:
+                mageButton.onClick.Invoke();
+                break;
+            case 4:
+                tankButton.onClick.Invoke();
+                break;
+        }
+        
+        healerButton.interactable = false;
+        scytheButton.interactable = false;
+        mageButton.interactable = false;
+        tankButton.interactable = false;
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {

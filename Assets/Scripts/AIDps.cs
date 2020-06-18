@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using static Battle;
 
@@ -86,15 +89,33 @@ public class AIDps : MonoBehaviour
 
             if (activatedSpell == "special" || activatedSpell == "autoAttack")
             {
-                GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
-              character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
+                object[] content = new object[] { character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget };
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+                SendOptions sendOptions = new SendOptions { Reliability = true };
+                PhotonNetwork.RaiseEvent(NetworkEventHandler.AnimateSpell, content, raiseEventOptions, sendOptions);
+                
+                //GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
+              //character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
             }
             else if (activatedSpell == "magicAttack")
             {
                 characterIndex = getCharacterAnimationIndex();
                 character.name = this.name;
-                GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animateCharacterFight(
-                    character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex);
+
+                if (true == true)
+                {
+                    object[] content = new object[]
+                    {
+                        character.name, character.fromPositionX, character.fromPositionY, character.toPositionX,
+                        character.toPositionY, characterIndex
+                    };
+                    RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+                    SendOptions sendOptions = new SendOptions {Reliability = true};
+                    PhotonNetwork.RaiseEvent(NetworkEventHandler.AnimateCharacter, content, raiseEventOptions,
+                        sendOptions);
+                }
+                //GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animateCharacterFight(
+                    //character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex);
 
                 characterIndex = getCharacterIndex(activatedSpell);
                 character.name = getCharacterClassName(this.name) + activatedSpell;
@@ -102,8 +123,21 @@ public class AIDps : MonoBehaviour
                 character.fromPositionY = GameObject.Find(actualTarget).transform.position.y + 12.2f;
                 character.toPositionX = GameObject.Find(actualTarget).transform.position.x;
                 character.toPositionY = GameObject.Find(actualTarget).transform.position.y;
-                GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
-                   character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
+
+                if (true == true)
+                {
+                    object[] content = new object[]
+                    {
+                        character.name, character.fromPositionX, character.fromPositionY, character.toPositionX,
+                        character.toPositionY, characterIndex, actualTarget
+                    };
+                    RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+                    SendOptions sendOptions = new SendOptions {Reliability = true};
+                    PhotonNetwork.RaiseEvent(NetworkEventHandler.AnimateSpell, content, raiseEventOptions, sendOptions);
+                }
+
+                //GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
+                  // character.name, character.fromPositionX, character.fromPositionY, character.toPositionX, character.toPositionY, characterIndex, actualTarget);
             }
 
 
