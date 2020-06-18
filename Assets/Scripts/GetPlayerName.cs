@@ -854,17 +854,28 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
     private float timeToChangeScene;
     private Boolean shouldBegin;
     public GameObject BlackScreen;
+
+    private Text playersInRoomText;
+    
     // Start is called before the first frame update
     void Start()
     {
+        //Screen.fullScreenMode = FullScreenMode.Windowed;
+        Screen.SetResolution(800,450, false);
+    
         txt_Input = GameObject.Find("UserName").GetComponent<InputField>();
         button = GameObject.Find("Button").GetComponent<Button>();
+        button.interactable = false;
+        GameObject.Find("LoadButton").GetComponent<Button>().interactable = false;
+        playersInRoomText = GameObject.Find("PlayersInRoomText").GetComponent<Text>();
         shouldBegin = false;
 
         button.onClick.AddListener(delegate { onButtonClick(); });
         txt_Input.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         timeToChangeScene = 5.5f;
         sceneIndexToRun = 1;
+        
+        Connect();
     }
 
     public void ValueChangeCheck()
@@ -886,7 +897,6 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
         shouldBegin = true;
         (this.GetComponent("FadeOut") as MonoBehaviour).enabled = true;
         BlackScreen.SetActive(true);
-        Connect();
 
         //timerPref = PlayerPrefs.GetInt("playerName");
     }
@@ -935,7 +945,7 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if(shouldBegin)
+        if(shouldBegin && connectionFinished)
         {
             timeToChangeScene -= Time.deltaTime;
             if (timeToChangeScene <= 0 && connectionFinished)
@@ -989,10 +999,31 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
+        UpdatePlayersInRoomText();
+        
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
             connectionFinished = true;
+            button.interactable = true;
+            GameObject.Find("LoadButton").GetComponent<Button>().interactable = true;
         }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log("Player entered room");
+        UpdatePlayersInRoomText();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("Player left room");
+        UpdatePlayersInRoomText();
+    }
+
+    private void UpdatePlayersInRoomText()
+    {
+        playersInRoomText.text = "Players in room (with you): " + PhotonNetwork.CurrentRoom.PlayerCount;
     }
 }
