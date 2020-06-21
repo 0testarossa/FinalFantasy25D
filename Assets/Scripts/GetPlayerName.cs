@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -895,8 +896,12 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
         PlayerPrefs.SetString("playerName3", "scythe");
         PlayerPrefs.SetString("playerName4", "tank");
         shouldBegin = true;
-        (this.GetComponent("FadeOut") as MonoBehaviour).enabled = true;
-        BlackScreen.SetActive(true);
+        /*(this.GetComponent("FadeOut") as MonoBehaviour).enabled = true;
+        BlackScreen.SetActive(true);*/
+        
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        SendOptions sendOptions = new SendOptions { Reliability = true };
+        PhotonNetwork.RaiseEvent(NetworkEventHandler.FadeOut, null, raiseEventOptions, sendOptions);
 
         //timerPref = PlayerPrefs.GetInt("playerName");
     }

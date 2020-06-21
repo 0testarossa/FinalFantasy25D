@@ -9,7 +9,10 @@ public class NetworkEventHandler : MonoBehaviour, IOnEventCallback
 {
     public static readonly byte AnimateCharacter = 1;
     public static readonly byte AnimateSpell = 2;
-    
+    public static readonly byte FadeOut = 3;
+
+    public GameObject FadeOutImage;
+
     public void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -23,13 +26,14 @@ public class NetworkEventHandler : MonoBehaviour, IOnEventCallback
     public void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
-        object[] data = (object[])photonEvent.CustomData;
-        
+        object[] data = (object[]) photonEvent.CustomData;
+
         if (eventCode == AnimateCharacter)
         {
             GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animateCharacterFight(
                 (string) data[0], (float) data[1], (float) data[2], (float) data[3], (float) data[4], (int) data[5]);
-        }else if (eventCode == AnimateSpell)
+        }
+        else if (eventCode == AnimateSpell)
         {
             bool last = false;
             if (data.Length == 8)
@@ -37,6 +41,11 @@ public class NetworkEventHandler : MonoBehaviour, IOnEventCallback
             GameObject.Find("Canvas/guiScripts").GetComponent<CharactersAnimationFight>().animatespellFight(
                 (string) data[0], (float) data[1], (float) data[2], (float) data[3],
                 (float) data[4], (int) data[5], (string) data[6], last);
+        }
+        else if (eventCode == FadeOut)
+        {
+            GameObject.Find("UserNameListener").GetComponent<FadeOut>().enabled = true;
+            FadeOutImage.SetActive(true);
         }
     }
 }
