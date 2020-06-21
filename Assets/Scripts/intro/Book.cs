@@ -77,7 +77,7 @@ public class Book : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             if (actualScreenIndex < allScreens.Length && timeLeftToShowScreen == timeToShowScreen)
             {
@@ -133,7 +133,7 @@ public class Book : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             if (actualBorderIndex < 2 && borders[actualBorderIndex].color.a != 1f && timeLeftToShowBorder == timeToShowScreen)
             {

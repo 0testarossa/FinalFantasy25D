@@ -53,7 +53,7 @@ public class BookText : MonoBehaviour
             showNewPlot();
         }
 
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
         {
             if (currentDialogPage < toDialogPage)
             {
