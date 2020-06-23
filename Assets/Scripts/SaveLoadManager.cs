@@ -28,7 +28,7 @@ public static class SaveLoadManager
    
     public static void loadGame()
     {
-        GetPlayerName.sceneIndexToRun = PlayerPrefs.GetInt("Scene", 1);
+        GetPlayerName.sceneIndexToRun = PlayerPrefs.GetInt("Scene", 2);
 
         foreach (string item in GetPlayerName.allItemsInGame)
         {

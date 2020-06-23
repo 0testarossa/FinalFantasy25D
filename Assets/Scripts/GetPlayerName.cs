@@ -874,7 +874,7 @@ public class GetPlayerName : MonoBehaviourPunCallbacks
         button.onClick.AddListener(delegate { onButtonClick(); });
         txt_Input.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         timeToChangeScene = 5.5f;
-        sceneIndexToRun = 1;
+        sceneIndexToRun = 2;
         
         Connect();
     }
